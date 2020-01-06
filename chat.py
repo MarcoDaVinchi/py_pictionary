@@ -3,7 +3,7 @@ Represents and stores information about the chat
 """
 
 
-class chat(object):
+class Chat(object):
     def __init__(self):
         self.content = []
 
@@ -18,5 +18,6 @@ class chat(object):
 
     def __str__(self):
         return "".join(self.content)
+
     def __repr__(self):
         return str(self)
