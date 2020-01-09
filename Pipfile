@@ -6,6 +6,8 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 autopep8 = "*"
+pylint = "*"
+v = {editable = true,version = "*"}
 
 [packages]
 
