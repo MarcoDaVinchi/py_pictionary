@@ -2,11 +2,13 @@
 Represents a round of the game.
 """
 import time as t
-from _thread import *
+from _thread import start_new_thread
+from .game import Game
+from .chat import Chat
 
 
 class Round(object):
-    def __init__(self, word, player_drawing, players):
+    def __init__(self, word, player_drawing, players, game):
         """[summary]
         init object
         Arguments:
@@ -21,9 +23,52 @@ class Round(object):
         self.skips = 0
         self.player_scores = {player: 0 for player in players}
         self.time = 75
+        self.chat = Chat(self)
         start_new_thread(self.time_thread, ())
 
+    def skip(self):
+        """
+        Returns true if round skipped threshold met
+
+        Returns:
+            [bool]: [description]
+        """
+        self.skips += 1
+        if self.skips > len(self.players) - 2:
+            self.skips = 0
+            return True
+
+        return False
+
+    def get_scores(self):
+        """Returns all the player scores
+
+        Returns:
+            [type]: [description]
+        """
+        return self.scores
+
+    def get_score(self, player):
+        """Gets a specific players scores
+
+        Args:
+            player ([type]): [description]
+
+        Raises:
+            Exception: [description]
+
+        Returns:
+            [type]: [description]
+        """
+        if player in self.player_scores:
+            return self.player_scores[player]
+        else:
+            raise Exception("Player not in score list")
+
     def time_thread(self):
+        """
+        Runs in thread to keep track of time
+        """
         while self.time > 0:
             t.sleep(1)
             self.time -= 1
@@ -61,5 +106,5 @@ class Round(object):
             self.end_round("Drawing player leaves")
 
     def end_round(self, msg):
-        # TODO implement end_round functionallity
-        pass
+        # TODO implement end_round functionality
+        self.game.round_ended()
