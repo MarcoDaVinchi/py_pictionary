@@ -23,6 +23,7 @@ class Round(object):
         self.skips = 0
         self.player_scores = {player: 0 for player in players}
         self.time = 75
+        self.game = game
         self.chat = Chat(self)
         start_new_thread(self.time_thread, ())
 
