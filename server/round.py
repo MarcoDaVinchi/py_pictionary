@@ -108,4 +108,6 @@ class Round(object):
 
     def end_round(self, msg):
         # TODO implement end_round functionality
+        for player in self.players:
+            player.update_score(self.player_scores[player])
         self.game.round_ended()

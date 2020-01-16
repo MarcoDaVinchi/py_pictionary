@@ -44,23 +44,31 @@ class Server(object):
                         if key == 0:  # guess
                             correct = player.game.player_guess(
                                 player, data[0][0])
-                            send_msg[0] = [correct]
+                            send_msg[0] = correct
                         elif key == 1:  # skip
-                            pass
+                            skip = player.game.skip()
+                            send_msg[0] = skip
                         elif key == 2:  # get chat
-                            pass
+                            content = player.game.round.chat.get_chat()
+                            send_msg[2] = content
                         elif key == 3:  # get board
-                            pass
+                            brd = player.game.board.get_board()
+                            send_msg[3] = brd
                         elif key == 4:  # get score
-                            pass
+                            scores = player.game.get_player_scores()
+                            send_msg[4] = scores
                         elif key == 5:  # get round
-                            pass
+                            rnd = player.game.round_count
+                            send_msg[5] = rnd
                         elif key == 6:  # get word
-                            pass
+                            word = player.game.round.word
+                            send_msg[6] = word
                         elif key == 7:  # get skips
-                            pass
+                            skips = player.game.round.skips
+                            send_msg[7] = skips
                         elif key == 8:  # update board
-                            pass
+                            x, y, color = data[8][:3]
+                            player.game.update_board(x, y, color)
                         elif key == 9:  # get round time
                             pass
                         else:
