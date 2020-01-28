@@ -1,7 +1,7 @@
 """
 Player object on the server
 """
-from .game import Game
+from game import Game
 
 
 class Player(object):
